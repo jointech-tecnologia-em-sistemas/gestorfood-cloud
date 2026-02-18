@@ -48,7 +48,7 @@ export async function clientesRoutes(fastify: FastifyInstance) {
             cliente.NOME,
             cliente.TELEFONE || cliente.CELULAR,
             cliente.EMAIL,
-            cliente.PONTOS || 0,
+            Math.floor(Number(cliente.PONTOS || 0)),
             origin,
             timestamp
           ]
