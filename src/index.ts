@@ -3,6 +3,7 @@ import cors from '@fastify/cors';
 import { vendasRoutes } from './routes/vendas.js';
 import { produtosRoutes } from './routes/produtos.js';
 import { clientesRoutes } from './routes/clientes.js';
+import { syncRoutes } from './routes/sync.js';
 
 const fastify = Fastify({
   logger: {
@@ -27,6 +28,7 @@ fastify.get('/health', async () => ({
 await fastify.register(vendasRoutes, { prefix: '/api' });
 await fastify.register(produtosRoutes, { prefix: '/api' });
 await fastify.register(clientesRoutes, { prefix: '/api' });
+await fastify.register(syncRoutes, { prefix: '/api' });
 
 // Start server
 const PORT = parseInt(process.env.PORT || '3000');
