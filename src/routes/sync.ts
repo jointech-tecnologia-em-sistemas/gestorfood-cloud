@@ -14,7 +14,7 @@ export async function syncRoutes(fastify: FastifyInstance) {
       const result = await query(
         `SELECT * FROM vendas 
          WHERE synced_at IS NULL 
-         ORDER BY emissao ASC, hora_emissao ASC 
+         ORDER BY emissao ASC, id ASC 
          LIMIT 50`
       );
 
