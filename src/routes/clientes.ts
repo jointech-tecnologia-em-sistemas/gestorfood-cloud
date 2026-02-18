@@ -10,6 +10,21 @@ export async function clientesRoutes(fastify: FastifyInstance) {
       return reply.status(400).send({ error: 'Invalid data format' });
     }
 
+    fastify.log.info(`📥 Packet received. Body type: ${typeof request.body}`);
+    fastify.log.info(`📥 Body keys: ${Object.keys(request.body as object)}`);
+
+    if (data) {
+      fastify.log.info(`📥 Data length: ${Array.isArray(data) ? data.length : 'Not an array'}`);
+    } else {
+      fastify.log.warn('📥 Data property is missing in body');
+      // Log raw body for debugging (be careful with PII in prod, but needed now)
+      fastify.log.info({ body: request.body }, 'Raw Body');
+    }
+
+    if (!data || !Array.isArray(data)) {
+      return reply.status(400).send({ error: 'Invalid data format' });
+    }
+
     fastify.log.info(`📥 Receiving ${data.length} clients from ${origin}`);
 
     let inserted = 0;
