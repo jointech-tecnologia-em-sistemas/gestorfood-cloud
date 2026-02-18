@@ -39,7 +39,7 @@ export async function produtosRoutes(fastify: FastifyInstance) {
         );
         inserted++;
       } catch (err) {
-        fastify.log.error(`Error inserting product ${produto.PRODUTO}:`, err);
+        fastify.log.error({ err }, `Error inserting product ${produto.PRODUTO}`);
       }
     }
 

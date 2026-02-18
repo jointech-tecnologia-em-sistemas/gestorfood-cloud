@@ -40,7 +40,7 @@ export async function clientesRoutes(fastify: FastifyInstance) {
         );
         inserted++;
       } catch (err) {
-        fastify.log.error(`Error inserting client ${cliente.CLIENTE}:`, err);
+        fastify.log.error({ err }, `Error inserting client ${cliente.CLIENTE}`);
       }
     }
 

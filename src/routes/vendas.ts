@@ -45,7 +45,7 @@ export async function vendasRoutes(fastify: FastifyInstance) {
         if (result.rowCount === 1) inserted++;
         else updated++;
       } catch (err) {
-        fastify.log.error(`Error inserting sale ${venda.VENDA}:`, err);
+        fastify.log.error({ err }, `Error inserting sale ${venda.VENDA}`);
       }
     }
 
