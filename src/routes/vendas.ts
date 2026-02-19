@@ -14,6 +14,7 @@ export async function vendasRoutes(fastify: FastifyInstance) {
 
     let inserted = 0;
     let updated = 0;
+    let errors: any[] = [];
 
     for (const venda of data) {
       try {
@@ -53,16 +54,18 @@ export async function vendasRoutes(fastify: FastifyInstance) {
 
         if (result.rowCount === 1) inserted++;
         else updated++;
-      } catch (err) {
+      } catch (err: any) {
         fastify.log.error({ err }, `Error inserting sale ${venda.VENDA}`);
+        errors.push({ venda: venda.VENDA, error: err.message });
       }
     }
 
     return {
-      success: true,
+      success: errors.length === 0,
       total: data.length,
       inserted,
-      updated
+      updated,
+      errors
     };
   });
 
