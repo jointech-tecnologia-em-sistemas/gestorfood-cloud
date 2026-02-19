@@ -20,12 +20,12 @@ export async function vendasRoutes(fastify: FastifyInstance) {
       try {
         const result = await query(
           `INSERT INTO vendas (
-            venda_id, cliente_id, emissao, hora_emissao, 
+            venda_id, cliente_id, emissao, 
             total_bruto, total_liquido, status, tipo_entrega,
             origem, synced_at,
             itens_json, pagamento_json, endereco_json, observacao
           )
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
           ON CONFLICT (venda_id) DO UPDATE SET
             status = EXCLUDED.status,
             total_liquido = EXCLUDED.total_liquido,
@@ -38,7 +38,6 @@ export async function vendasRoutes(fastify: FastifyInstance) {
             venda.VENDA,
             venda.CLIENTE,
             venda.EMISSAO,
-            venda.HORA_EMISSAO,
             venda.TOTAL_BRUTO,
             venda.TOTAL_LIQUIDO,
             venda.STATUS,
