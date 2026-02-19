@@ -21,13 +21,18 @@ export async function vendasRoutes(fastify: FastifyInstance) {
           `INSERT INTO vendas (
             venda_id, cliente_id, emissao, hora_emissao, 
             total_bruto, total_liquido, status, tipo_entrega,
-            origem, synced_at
+            origem, synced_at,
+            itens_json, pagamento_json, endereco_json, observacao
           )
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
           ON CONFLICT (venda_id) DO UPDATE SET
             status = EXCLUDED.status,
             total_liquido = EXCLUDED.total_liquido,
-            synced_at = EXCLUDED.synced_at`,
+            synced_at = EXCLUDED.synced_at,
+            itens_json = EXCLUDED.itens_json,
+            pagamento_json = EXCLUDED.pagamento_json,
+            endereco_json = EXCLUDED.endereco_json,
+            observacao = EXCLUDED.observacao`,
           [
             venda.VENDA,
             venda.CLIENTE,
@@ -38,7 +43,11 @@ export async function vendasRoutes(fastify: FastifyInstance) {
             venda.STATUS,
             venda.TIPO_ENTREGA,
             origin,
-            timestamp
+            timestamp, // Se vier null, salva null (Pendente)
+            JSON.stringify(venda.itens_json || []),
+            JSON.stringify(venda.pagamento_json || []),
+            JSON.stringify(venda.endereco_json || {}),
+            venda.observacao || ''
           ]
         );
 
