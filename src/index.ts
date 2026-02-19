@@ -4,6 +4,7 @@ import { vendasRoutes } from './routes/vendas.js';
 import { produtosRoutes } from './routes/produtos.js';
 import { clientesRoutes } from './routes/clientes.js';
 import { syncRoutes } from './routes/sync.js';
+import { adminRoutes } from './routes/admin.js';
 
 const fastify = Fastify({
   logger: {
@@ -29,6 +30,7 @@ await fastify.register(vendasRoutes, { prefix: '/api' });
 await fastify.register(produtosRoutes, { prefix: '/api' });
 await fastify.register(clientesRoutes, { prefix: '/api' });
 await fastify.register(syncRoutes, { prefix: '/api' });
+await fastify.register(adminRoutes, { prefix: '/api' });
 
 // Start server
 const PORT = parseInt(process.env.PORT || '3000');
