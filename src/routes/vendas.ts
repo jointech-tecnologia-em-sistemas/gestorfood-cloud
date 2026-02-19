@@ -71,7 +71,7 @@ export async function vendasRoutes(fastify: FastifyInstance) {
     const { limit = 100 } = request.query as any;
 
     const result = await query(
-      'SELECT * FROM vendas ORDER BY emissao DESC, hora_emissao DESC LIMIT $1',
+      'SELECT * FROM vendas ORDER BY emissao DESC, id DESC LIMIT $1',
       [limit]
     );
 
